@@ -4,7 +4,7 @@ var happyNumber = function(input) {
   var number = parseInt(input, 10),
       result = 0,
       seen   = {};
-      
+
   if (number === 1) {
     return 1;
   };
@@ -37,4 +37,3 @@ fs.readFileSync(process.argv[2]).toString().split('\n').forEach(function (line) 
         console.log(happyNumber(line));
     }
 });
-
