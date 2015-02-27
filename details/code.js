@@ -11,27 +11,37 @@ fs.readFileSync(process.argv[2]).toString().split('\n').forEach(function (line) 
 function calculate(input) {
   var lines = input.split(',');
       pointCount = 0,
-      prevCount = 0;
+      prevCount = 0,
+      maxCount = 999,
+      indexOfFirstPoint = 0;
 
   for(var i = 0; i < lines.length; i += 1) {
-    pointCount = 0;
-
-    var cells = lines[i].split('');
-
-    for(var j = 0; j < cells.length; j += 1) {
-      if (cells[j] === '.') {
-        pointCount += 1;
-      };
-
-      if()
-
-      prevCount = pointCount;
+    indexOfFirstPoint = lines[i].indexOf('.');
+    
+    if (indexOfFirstPoint < 0) {
+      return 0;
     }
 
-    if(prevCount === 0) {
-      break;
+    indexOfY = lines[i].indexOf('Y');
+
+    if (indexOfY < indexOfFirstPoint) {
+      return 0;
+    }
+
+    pointCount = 0;
+
+    for(var j = indexOfFirstPoint; j < lines[i].length; j += 1) {
+      pointCount += 1;
+      if (lines[i][j+1] === 'Y')  {
+        prevCount = pointCount;
+        break;
+      }
+    }
+
+    if (prevCount < maxCount) {
+      maxCount = prevCount;
     }
   }
 
-  return pointCount;
+  return maxCount;
 }
